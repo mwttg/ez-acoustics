@@ -1,7 +1,7 @@
 package io.github.mwttg.ezacoustics;
 
-import org.lwjgl.openal.AL10;
-import org.lwjgl.openal.ALC10;
+import org.lwjgl.openal.AL11;
+import org.lwjgl.openal.ALC11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +34,10 @@ public final class EzCleanUp {
     public static void purge() {
         LOG.info("clean up OpenAL");
         LOG.debug("... free sound sources");
-        soundBufferIds.forEach(AL10::alDeleteSources);
+        soundBufferIds.forEach(AL11::alDeleteSources);
         LOG.debug("... free sound buffers");
-        soundSourceIds.forEach(AL10::alDeleteBuffers);
+        soundSourceIds.forEach(AL11::alDeleteBuffers);
         LOG.debug("... close sound device");
-        ALC10.alcCloseDevice(deviceId);
+        ALC11.alcCloseDevice(deviceId);
     }
 }

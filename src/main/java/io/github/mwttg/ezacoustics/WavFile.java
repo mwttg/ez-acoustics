@@ -1,6 +1,6 @@
 package io.github.mwttg.ezacoustics;
 
-import org.lwjgl.openal.AL10;
+import org.lwjgl.openal.AL11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,10 +38,10 @@ final class WavFile {
         final var sampleSize = format.getSampleSizeInBits();
         final var tuple = new Pair(channels, sampleSize);
         return switch (tuple) {
-            case Pair(var c, var s) when (c == 1) && (s == 8) -> AL10.AL_FORMAT_MONO8;
-            case Pair(var c, var s) when (c == 1) && (s == 16) -> AL10.AL_FORMAT_MONO16;
-            case Pair(var c, var s) when (c == 2) && (s == 8) -> AL10.AL_FORMAT_STEREO8;
-            case Pair(var c, var s) when (c == 2) && (s == 16) -> AL10.AL_FORMAT_STEREO16;
+            case Pair(var c, var s) when (c == 1) && (s == 8) -> AL11.AL_FORMAT_MONO8;
+            case Pair(var c, var s) when (c == 1) && (s == 16) -> AL11.AL_FORMAT_MONO16;
+            case Pair(var c, var s) when (c == 2) && (s == 8) -> AL11.AL_FORMAT_STEREO8;
+            case Pair(var c, var s) when (c == 2) && (s == 16) -> AL11.AL_FORMAT_STEREO16;
             default ->
                     throw new IllegalArgumentException("Unsupported format channels = '%s', sampleSize = '%s' bit".formatted(channels, sampleSize));
         };
