@@ -14,8 +14,9 @@ public final class SoundDevice {
     private SoundDevice() {
     }
 
-    public static long create() {
+    public static void initialize() {
         final var deviceId = ALC10.alcOpenDevice((ByteBuffer) null);
+        EzCleanUp.addDeviceId(deviceId);
         if (deviceId == NULL) {
             throw new IllegalStateException("Failed to open the default OpenAL device.");
         }
@@ -28,7 +29,5 @@ public final class SoundDevice {
 
         ALC10.alcMakeContextCurrent(context);
         AL.createCapabilities(capabilities);
-
-        return deviceId;
     }
 }

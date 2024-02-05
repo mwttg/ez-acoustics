@@ -5,23 +5,21 @@ import org.lwjgl.openal.AL10;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class SoundBuffer {
+final class SoundBuffer {
 
     private static final Logger LOG = LoggerFactory.getLogger(SoundBuffer.class);
 
     private SoundBuffer() {
     }
 
-    public static int create(final String filename) {
-        final var soundFile = WavFile.readFrom(filename); // TODO Move?
-        final var data = BufferUtils.createByteBuffer(soundFile.data().length);
-        data.put(soundFile.data());
+    static int create(final SoundFileData soundFileData) {
+        final var data = BufferUtils.createByteBuffer(soundFileData.data().length);
+        data.put(soundFileData.data());
         data.flip();
-        final var sampleRate = (int) soundFile.format().getSampleRate();
 
         final var id = AL10.alGenBuffers();
         EzCleanUp.addSoundBufferId(id);
-        AL10.alBufferData(id, AL10.AL_FORMAT_MONO16, data, sampleRate); // TODO check for mono / stero 16/8 channels
+        AL10.alBufferData(id, soundFileData.openAlFormat(), data, soundFileData.sampleRate()); // TODO check for mono / stero 16/8 channels
         LOG.debug("... Create Sound Buffer");
 
         return id;

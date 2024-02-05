@@ -13,5 +13,9 @@ public class SoundListener {
         AL10.alListener3f(AL10.AL_VELOCITY, 0, 0, 0);
     }
 
+    public static void updatePosition(final Vector3f position) {
+
+    }
+
     // TODO more setter functions
 }
